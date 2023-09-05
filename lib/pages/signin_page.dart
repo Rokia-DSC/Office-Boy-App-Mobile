@@ -1,15 +1,12 @@
 //ahMEd@123
-
 import 'package:blur/blur.dart';
 import 'package:coffee_ui/pages/signup_page.dart';
-//import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-//import '../util/validate_regex.dart';
 import 'package:coffee_ui/pages/widgets/home_page.dart';
-
 import '../AppConstant/assests_manager.dart';
 
 class SignInPage extends StatelessWidget {
@@ -37,13 +34,12 @@ class SignupPageComponents extends StatefulWidget {
 class _SignupPageComponentsState extends State<SignupPageComponents> {
   AssetsManager assetsManager = AssetsManager();
   final _formKey = GlobalKey<FormState>();
-  bool isButtonActive = true;
   bool _hidePassword = true;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _login() async {
+  Future<bool> _login() async {
     final String email = _emailController.text;
     final String password = _passwordController.text;
 
@@ -52,21 +48,47 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
     try {
       final response = await http.post(
         url,
-        body: {
-          'email': email,
-          'password': password,
-        },
+        headers: {'Content-Type': 'application/json'},
+        body: json.encode({'email': email, 'password': password}),
       );
 
+      if (kDebugMode) {
+        print('Request URL: ${url.toString()}');
+      }
+      if (kDebugMode) {
+        print('Request Body: ${json.encode({
+              'email': email,
+              'password': '****'
+            })}');
+      }
+      if (kDebugMode) {
+        print('Response: $response');
+      }
+
       if (response.statusCode == 200) {
-        print('Successful login');
+        if (kDebugMode) {
+          print('Successful login');
+        }
         final data = json.decode(response.body);
-        final accessToken = data['accessToken'];
+        if (kDebugMode) {
+          print('Response Data: $data');
+        }
+        // final accessToken = data['accessToken'];
+        return true;
       } else {
-        print('Login failed: ${response.statusCode}');
+        if (kDebugMode) {
+          print('Login failed: ${response.statusCode}');
+        }
+        if (kDebugMode) {
+          print('Response Body: ${response.body}');
+        }
+        return false; // Login failed, return false
       }
     } catch (e) {
-      print('Error: $e');
+      if (kDebugMode) {
+        print('Error: $e');
+      }
+      return false; // Login failed due to an error, return false
     }
   }
 
@@ -224,16 +246,19 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
                           height: 62.h,
                           child: ElevatedButton(
                             onPressed: _formKey.currentState?.validate() == true
-                                ? () {
-                                    _login();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => const HomePage(),
-                                      ),
-                                    );
+                                ? () async {
+                                    bool loginSuccess = await _login();
+                                    if (loginSuccess) {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomePage(),
+                                        ),
+                                      );
+                                    }
                                   }
-                                : null,
+                                : null, // Disable button if form data is not valid
                             child: Text(
                               'Login',
                               style: TextStyle(fontSize: 16.sp),

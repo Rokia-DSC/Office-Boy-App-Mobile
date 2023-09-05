@@ -708,16 +708,6 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
                               }
                             }
                           : null,
-                      // onPressed: _formKey.currentState?.validate() == true
-                      //     ? () {
-                      //         Navigator.push(
-                      //           context,
-                      //           MaterialPageRoute(
-                      //             builder: (context) => const SigninPage(),
-                      //           ),
-                      //         );
-                      //       }
-                      //     : null,
                       child: Text(
                         'Signup',
                         style: TextStyle(fontSize: 16.sp),
