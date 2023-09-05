@@ -1,11 +1,16 @@
+//ahMEd@123
+
 import 'package:blur/blur.dart';
 import 'package:coffee_ui/pages/signup_page.dart';
 //import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 //import '../util/validate_regex.dart';
 import 'package:coffee_ui/pages/widgets/home_page.dart';
+
+import '../AppConstant/assests_manager.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -30,13 +35,40 @@ class SignupPageComponents extends StatefulWidget {
 }
 
 class _SignupPageComponentsState extends State<SignupPageComponents> {
+  AssetsManager assetsManager = AssetsManager();
   final _formKey = GlobalKey<FormState>();
   bool isButtonActive = true;
-
   bool _hidePassword = true;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+
+  void _login() async {
+    final String email = _emailController.text;
+    final String password = _passwordController.text;
+
+    final url = Uri.parse('http://${assetsManager.ipAddress}:8080/auth/login');
+
+    try {
+      final response = await http.post(
+        url,
+        body: {
+          'email': email,
+          'password': password,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('Successful login');
+        final data = json.decode(response.body);
+        final accessToken = data['accessToken'];
+      } else {
+        print('Login failed: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
 
   @override
   void dispose() {
@@ -193,6 +225,7 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
                           child: ElevatedButton(
                             onPressed: _formKey.currentState?.validate() == true
                                 ? () {
+                                    _login();
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(

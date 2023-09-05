@@ -3,9 +3,12 @@ import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../../AppConstant/assests_manager.dart';
+
 Future<List<DropDownValueModel>> fetchDepartments() async {
-  final response = await http
-      .get(Uri.parse('http://10.1.11.96:8080/admin/sites/department-data'));
+  AssetsManager assetsManager = AssetsManager();
+  final response = await http.get(Uri.parse(
+      'http://${assetsManager.ipAddress}:8080/admin/sites/department-data'));
 
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);

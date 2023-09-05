@@ -8,6 +8,7 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../AppConstant/assests_manager.dart';
 import '../data/web_services/fetched_data_building.dart';
 import '../data/web_services/fetched_data_department.dart';
 import '../data/web_services/fetched_data_office.dart';
@@ -51,6 +52,7 @@ class SignupPageComponents extends StatefulWidget {
 }
 
 class _SignupPageComponentsState extends State<SignupPageComponents> {
+  AssetsManager assetsManager = AssetsManager();
   bool _obscureText = true;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _fNameController = TextEditingController();
@@ -135,9 +137,10 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
       String departmentId,
       String officeId,
       String roomId) async {
-    final url = Uri.parse('http://10.1.11.96:8080/auth/signup');
+    final url = Uri.parse('http://${assetsManager.ipAddress}:8080/auth/signup');
     final response = await http.post(
       url,
+      //reRE12@re
       headers: {"Content-Type": "application/json"},
       body: jsonEncode({
         'firstname': firstname,

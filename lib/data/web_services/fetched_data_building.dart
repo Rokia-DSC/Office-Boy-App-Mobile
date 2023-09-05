@@ -4,10 +4,12 @@ import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:coffee_ui/AppConstant/assests_manager.dart';
 
 Future<List<DropDownValueModel>> fetchBuildings() async {
-  final response = await http
-      .get(Uri.parse('http://10.1.11.96:8080/admin/sites/building-data'));
+  AssetsManager assetsManager = AssetsManager();
+  final response = await http.get(Uri.parse(
+      'http://${assetsManager.ipAddress}:8080/admin/sites/building-data'));
 
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
@@ -21,7 +23,7 @@ Future<List<DropDownValueModel>> fetchBuildings() async {
       for (var building in data['buildings']) {
         // print(building['buildingname']);
         buildings.add(DropDownValueModel(
-          value: building['buildingid'].toString() ?? 'Noor',
+          value: building['buildingid'].toString(),
           name: building['buildingname'] ?? 'Noor',
         ));
       }
