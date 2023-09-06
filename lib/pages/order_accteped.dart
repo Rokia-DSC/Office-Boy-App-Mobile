@@ -1,8 +1,9 @@
 import 'package:coffee_ui/pages/widgets/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:get/get.dart';
 //import 'order_page.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 class OrderAccepted extends StatelessWidget {
   const OrderAccepted({Key? key}) : super(key: key);
@@ -24,7 +25,9 @@ class OrderAccepted extends StatelessWidget {
         ),
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            // Get.back();
+            Navigator.popAndPushNamed(context, route.homePage);
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -120,11 +123,13 @@ class OrderAccepted extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(16.0.r)),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    // MaterialPageRoute(builder: (context) => const OrderPage()),
-                    MaterialPageRoute(builder: (context) => const HomePage()),
-                  );
+                  Navigator.pushNamed(context, route.homePage);
+                  // Get.to(const HomePage());
+                  // Navigator.push(
+                  //   context,
+                  //   // MaterialPageRoute(builder: (context) => const OrderPage()),
+                  //   MaterialPageRoute(builder: (context) => const HomePage()),
+                  // );
                 },
               ),
             ),

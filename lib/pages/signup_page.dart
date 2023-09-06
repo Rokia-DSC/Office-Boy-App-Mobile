@@ -7,7 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
+import 'package:get/get.dart';
 import '../AppConstant/assests_manager.dart';
 import '../data/web_services/fetched_data_building.dart';
 import '../data/web_services/fetched_data_department.dart';
@@ -15,7 +15,7 @@ import '../data/web_services/fetched_data_office.dart';
 import '../data/web_services/fetched_data_roles.dart';
 import '../data/web_services/fetched_data_rooms.dart';
 import '../data/web_services/fetched_data_sites.dart';
-
+import 'package:coffee_ui/route/route.dart' as route;
 //import 'package:dio/dio.dart';
 
 class SignupPage extends StatefulWidget {
@@ -699,12 +699,14 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
                               );
                               if (_formKey.currentState != null &&
                                   _formKey.currentState!.validate()) {
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const SignInPage(),
-                                  ),
-                                );
+                                Navigator.pushNamed(context, route.signInPage);
+                                // Get.to(const SignInPage());
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => const SignInPage(),
+                                //   ),
+                                // );
                               }
                             }
                           : null,

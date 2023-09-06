@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'edit_location.dart';
 import 'office_boy_screens/office_boy_home.dart';
 import 'order_accteped.dart';
+import 'package:get/get.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 // import 'order_page.dart';
 // import 'package:auto_size_text_field/auto_size_text_field.dart';
 
@@ -92,7 +94,9 @@ class _CartPageState extends State<CartPage> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            // Navigator.pop(context);
+            // Get.back();
+            Navigator.popAndPushNamed(context, route.detailsPage);
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -475,11 +479,13 @@ class _CartPageState extends State<CartPage> {
                         ),
                       ),
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeOfficeBoy()),
-                        );
+                        Navigator.pushNamed(context, route.officePage);
+                        // Get.to(const HomeOfficeBoy());
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //       builder: (context) => const HomeOfficeBoy()),
+                        // );
                         setState(() {
                           selectedOfficeBoy = OfficeBoy.ahmed;
                         });
@@ -619,12 +625,14 @@ class _CartPageState extends State<CartPage> {
                   borderRadius: BorderRadius.all(Radius.circular(16.0)),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const OrderAccepted()),
-                    //MaterialPageRoute(builder: (context) => const OrderPage()),
-                  );
+                  Navigator.pushNamed(context, route.orderAcceptedPage);
+                  // Get.to(const OrderAccepted());
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) => const OrderAccepted()),
+                  //   //MaterialPageRoute(builder: (context) => const OrderPage()),
+                  // );
                 },
               ),
             ),

@@ -1,5 +1,6 @@
 //ahMEd@123
 import 'package:blur/blur.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:coffee_ui/pages/signup_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:coffee_ui/pages/widgets/home_page.dart';
 import '../AppConstant/assests_manager.dart';
+import 'package:get/get.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -249,13 +252,21 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
                                 ? () async {
                                     bool loginSuccess = await _login();
                                     if (loginSuccess) {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const HomePage(),
-                                        ),
-                                      );
+                                      final SharedPreferences
+                                          sharedPreferences =
+                                          await SharedPreferences.getInstance();
+                                      sharedPreferences.setString(
+                                          'email', _emailController.text);
+                                      Navigator.pushNamed(
+                                          context, route.homePage);
+                                      // Get.to(const HomePage());
+                                      // Navigator.push(
+                                      //   context,
+                                      //   MaterialPageRoute(
+                                      //     builder: (context) =>
+                                      //         const HomePage(),
+                                      //   ),
+                                      // );
                                     }
                                   }
                                 : null, // Disable button if form data is not valid
@@ -294,11 +305,13 @@ class _SignupPageComponentsState extends State<SignupPageComponents> {
                           height: 62.h,
                           child: OutlinedButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SignupPage()),
-                              );
+                              Navigator.pushNamed(context, route.signUpPage);
+                              // Get.to(const SignupPage());
+                              // Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => const SignupPage()),
+                              // );
                             },
                             child: Text(
                               'Signup',

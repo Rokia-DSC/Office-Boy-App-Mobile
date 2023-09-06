@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'cart_page.dart';
+import 'package:get/get.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 List<DropDownValueModel> dropDownListSite = [
   const DropDownValueModel(
@@ -344,12 +346,14 @@ class _EditLocationState extends State<EditLocation> {
                             ? () {
                                 if (_formKey.currentState != null &&
                                     _formKey.currentState!.validate()) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const CartPage(),
-                                    ),
-                                  );
+                                  Navigator.pushNamed(context, route.cartPage);
+                                  // Get.to(const CartPage());
+                                  // Navigator.pushReplacement(
+                                  //   context,
+                                  //   MaterialPageRoute(
+                                  //     builder: (context) => const CartPage(),
+                                  //   ),
+                                  // );
                                 }
                               }
                             : null,
@@ -379,7 +383,10 @@ class _EditLocationState extends State<EditLocation> {
                       width: 315.w,
                       height: 62.h,
                       child: ElevatedButton(
-                        onPressed: () => Navigator.pop(context),
+                        // Navigator.pop(context)
+                        //Get.back()
+                        onPressed: () =>
+                            Navigator.popAndPushNamed(context, route.cartPage),
                         child: Text(
                           'Close',
                           style: TextStyle(fontSize: 16.sp),

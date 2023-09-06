@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../util/upcoming_orders.dart';
+import 'package:get/get.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 class HomeOfficeBoy extends StatefulWidget {
   const HomeOfficeBoy({Key? key}) : super(key: key);
@@ -24,7 +26,9 @@ class _HomeOfficeBoyState extends State<HomeOfficeBoy> {
             elevation: 2,
             leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                //Navigator.pop(context);
+                // Get.back();
+                Navigator.popAndPushNamed(context, route.cartPage);
               },
               icon: const Icon(
                 Icons.arrow_back_ios,

@@ -5,5 +5,5 @@ class AssetsManager {
   String addBtn = 'assets/images/add-button.png';
   String tmg = 'assets/images/TMG.png';
   String frame = 'assets/images/Frame 17.png';
-  String ipAddress = '10.1.11.171';
+  String ipAddress = '10.1.11.164';
 }

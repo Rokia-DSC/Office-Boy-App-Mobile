@@ -3,6 +3,8 @@ import '../pages/cart_page.dart';
 import '../pages/widgets/home_page.dart';
 import '../pages/widgets/favorites.dart';
 import '../pages/widgets/notifications.dart';
+import 'package:get/get.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 class IconNavigation extends StatefulWidget {
   const IconNavigation({super.key});
@@ -39,10 +41,12 @@ class _IconNavigationState extends State<IconNavigation> {
 
       // Navigate to the specific page if not already on it
       if (ModalRoute.of(context)?.settings.name != pages[index].toString()) {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => pages[index]),
-        );
+        // Navigator.pushReplacement(
+        //   context,
+        //   MaterialPageRoute(builder: (context) => pages[index]),
+        // );
+
+        Get.to(pages[index]);
       }
     }
   }

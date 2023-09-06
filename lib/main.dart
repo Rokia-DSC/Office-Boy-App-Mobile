@@ -1,6 +1,8 @@
 import 'package:coffee_ui/pages/onboardingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,12 +21,19 @@ class MyApp extends StatelessWidget {
       builder: (_, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          //home: OrderAccepted(),
           theme: ThemeData(brightness: Brightness.light),
-          home: child,
+          onGenerateRoute: route.controller,
+          initialRoute: route.onBoardingPage,
         );
+        // return GetMaterialApp(
+        //   debugShowCheckedModeBanner: false,
+        //   //home: OrderAccepted(),
+        //   theme: ThemeData(brightness: Brightness.light),
+        //   //home: child,
+        //   onGenerateRoute: route.controller,
+        // );
       },
-      child: const OnboardingScreen(),
+      //child: const OnboardingScreen(),
     );
   }
 }

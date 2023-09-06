@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../details.dart';
+import 'package:get/get.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 class ProductCard extends StatelessWidget {
   final String title, subtitle, img;
@@ -26,10 +28,12 @@ class ProductCard extends StatelessWidget {
         ),
         child: GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const DetailsPage()),
-            );
+            Navigator.pushNamed(context, route.detailsPage);
+            // Get.to(const DetailsPage());
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => const DetailsPage()),
+            // );
           },
           child: Column(
             children: <Widget>[

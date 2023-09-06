@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'cart_page.dart';
 import 'package:readmore/readmore.dart';
+import 'package:get/get.dart';
+import 'package:coffee_ui/route/route.dart' as route;
 
 class DetailsPage extends StatefulWidget {
   const DetailsPage({super.key});
@@ -39,7 +41,9 @@ class _DetailsPageState extends State<DetailsPage> {
           elevation: 0,
           leading: IconButton(
               onPressed: () {
-                Navigator.pop(context);
+                // Navigator.pop(context);
+                // Get.back();
+                Navigator.popAndPushNamed(context, route.homePage);
               },
               icon: const Icon(
                 Icons.arrow_back_ios,
@@ -263,10 +267,12 @@ class _DetailsPageState extends State<DetailsPage> {
                     borderRadius: BorderRadius.all(Radius.circular(16.0)),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const CartPage()),
-                    );
+                    Navigator.pushNamed(context, route.cartPage);
+                    // Get.to(const CartPage());
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => const CartPage()),
+                    // );
                   },
                 ),
               ),
